@@ -27,7 +27,7 @@ end
 
 %%---------------------PSNR FUNCTION-------------------------------------%%
 function [ psnr ] = PSNR( x,y )
-  %PSNR Peak segnal-to-noise radio
+  %PSNR Peak signal-to-noise radio
   maxImage = 255;% maximum possible value of intensity in 8-bit image
   psnr = 10*log10(maxImage*maxImage/MSE(x,y));%PSNR
 end

@@ -1,0 +1,34 @@
+%%-------------------First Programming Assignment------------------------%%
+% By: Jose Mielgo
+% This code compute the PSNR of two low-pass filtered images. 
+% Last time modified: 07/04/2014
+imagen = double(imread('image.gif'));% Read the image.
+filtro1 = ones(3,'double')./9;% 3x3 low-pass filter.
+lowpass1 = imfilter(imagen,filtro1,'replicate');% this command performs the convolution.
+subplot(1,2,1),imshow(lowpass1,[]); % Display the first filtered image. 
+disp('PSNR of the first image: ')
+disp(PSNR(imagen,lowpass1))
+filtro2 = ones(5,'double')./25;% 5x5 low-pass filter.
+lowpass2 = imfilter(imagen,filtro2,'replicate');% second convolution
+subplot(1,2,2),imshow(lowpass2,[]); % Display the second filtered image
+disp('PSNR of the second image: ')
+disp(PSNR(imagen,lowpass2))
+%%-----------------------------------------------------------------------%%
+
+%%----------------------MSE FUNCTION-------------------------------------%%
+function [ diff ] = MSE( X,Y )
+  %MSE Mean Square Error
+  [f,c] = size(X);% Dimentions of the image
+  diff = X-Y;% Substraction of every matrix element is performed 
+  diff = diff.*diff; % diff^2 is computed
+  diff = sum(sum(diff))/(f*c); % got it! MSE
+end
+%%-----------------------------------------------------------------------%%
+
+%%---------------------PSNR FUNCTION-------------------------------------%%
+function [ psnr ] = PSNR( x,y )
+  %PSNR Peak segnal-to-noise radio
+  maxImage = 255;% maximum possible value of intensity in 8-bit image
+  psnr = 10*log10(maxImage*maxImage/MSE(x,y));%PSNR
+end
+%%-----------------------------------------------------------------------%%
